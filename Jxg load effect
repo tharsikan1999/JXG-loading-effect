@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Loading Effect</title>
+<style>
+  #loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7); /* semi-transparent white overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  #loader {
+    font-size: 40px;
+  }
+
+  .char {
+    display: inline-block;
+    opacity: 0; /* Initially hide each character */
+    animation: slideIn 0.5s ease forwards; /* Apply animation */
+  }
+
+  /* Delay animation for each character */
+  .char:nth-child(1) {
+    animation-delay: 0.5s;
+  }
+
+  .char:nth-child(2) {
+    animation-delay: 1s;
+  }
+
+  .char:nth-child(3) {
+    animation-delay: 1.5s;
+  }
+
+  @keyframes slideIn {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  #content {
+    display: none;
+    text-align: center;
+    margin-top: 50px;
+  }
+</style>
+</head>
+<body>
+<div id="loader-wrapper">
+  <div id="loader">
+    <span class="char">J</span>
+    <span class="char">X</span>
+    <span class="char">G</span>
+  </div>
+</div>
+
+<!-- Your website content -->
+<div id="content">
+  <h1>Welcome to Your Website</h1>
+  <p>This is your content</p>
+</div>
+
+<script>
+// Function to reset the animation
+function resetAnimation() {
+  const chars = document.querySelectorAll(".char");
+  chars.forEach((char, index) => {
+    char.style.opacity = "0"; // Reset opacity
+    char.style.animation = "none"; // Reset animation
+    setTimeout(() => {
+      char.style.opacity = "1"; // Set opacity to trigger animation
+      char.style.animation = "slideIn 0.5s ease forwards"; // Apply animation
+    }, index * 500); // Add delay based on index
+  });
+}
+
+// Call the resetAnimation function initially
+resetAnimation();
+
+// Reset the animation continuously
+setInterval(resetAnimation, 1600); // Adjust the delay as needed
+</script>
+</body>
+</html>
+
